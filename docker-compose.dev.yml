@@ -1,0 +1,33 @@
+version: '3.5'
+services:
+
+  mailhog:
+    image: 'mailhog/mailhog:latest'
+    container_name: 'mailhog'
+    volumes:
+      - './volumes/mailhog/maildir:/maildir'
+    environment:
+      MH_STORAGE: maildir
+    ports:
+      # Web interface port
+      - 8025:8025
+    expose:
+      # SMTP port
+      - 1025
+    networks:
+     - 'sylius'
+    restart: 'always'
+
+  adminer:
+    image: 'adminer:standalone'
+    container_name: 'adminer'
+    command: php -S [::]:8033 -t /var/www/html
+    environment:
+      ADMINER_PORT: 8033
+    ports:
+      - 8033:8033
+    networks:
+     - 'sylius'
+    restart: 'always'
+    depends_on:
+      - mariadb

@@ -1,0 +1,91 @@
+version: '3.5'
+services:
+
+  # portainer:
+  #   image: 'portainer/portainer'
+  #   container_name: 'portainer'
+  #   command: -H unix:///var/run/docker.sock
+  #   volumes:
+  #     - '/var/run/docker.sock:/var/run/docker.sock'
+  #     - './volumes/portainer/data:/data'
+  #   ports:
+  #     - 8090:9000
+  #   networks:
+  #    - 'sylius'
+  #   restart: 'always'
+
+  nginx:
+    image: 'nginx:1.15-alpine'
+    container_name: 'nginx'
+    command: /bin/sh -c "envsubst '$$APP_PUBLIC_PATH' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+    volumes:
+      - './volumes/app:${APP_PATH}'
+      - './volumes/nginx/logs:/var/log/nginx'
+      # Config
+      - './images/nginx/default.conf.template:/etc/nginx/conf.d/default.conf.template'
+    environment:
+      APP_PUBLIC_PATH: ${APP_PUBLIC_PATH}
+    ports:
+     - 80:80
+    networks:
+     - 'sylius'
+    restart: 'always'
+    depends_on:
+      - php
+
+  php:
+    # Based on: 'php:7.2-fpm-alpine3.8'
+    build:
+      context: './images/php'
+    container_name: 'php'
+    volumes:
+      # App
+      - './volumes/app:${APP_PATH}'
+      # PHP Config
+      - './images/php/00-user.ini:/usr/local/etc/php/conf.d/00-user.ini'
+      - './images/php/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini'
+    environment:
+      # Symfony Dotenv never overwrites existing environment variables
+      APP_ENV: ${APP_ENV}
+      APP_DEBUG: ${APP_DEBUG}
+      APP_SECRET: EDITME
+      DATABASE_URL: mysql://root:root@mariadb/sylius_%kernel.environment%
+      MAILER_URL: smtp://mailhog:1025
+      # *.ini
+      PHP_DATE_TIMEZONE: UTC
+      PHP_SESSIONS_SAVE_PATH: /usr/local/php/sessions
+      # We need to set a high memory limit to build sucessfully
+      PHP_MEMORY_LIMIT: 2G
+      PHP_XDEBUG_REMOTE_HOST: 172.20.0.1
+      PHP_XDEBUG_REMOTE_PORT: 9000
+    expose:
+      - 9000
+    networks:
+     - 'sylius'
+    restart: 'always'
+    depends_on:
+      - mariadb
+
+  mariadb:
+    image: 'mariadb:10.4.0'
+    container_name: 'mariadb'
+    volumes:
+      - './volumes/mariadb/databases:/var/lib/mysql'
+      - './volumes/mariadb/logs:/var/log/mysql'
+      # Config
+      - './images/mariadb/user.cnf:/etc/mysql/conf.d/user.cnf'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    expose:
+      - 3306
+    networks:
+     - 'sylius'
+    restart: 'always'
+
+networks:
+  sylius:
+    name: 'sylius'
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16

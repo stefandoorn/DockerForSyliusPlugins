@@ -1,0 +1,7 @@
+.env
+/volumes/app/*
+/volumes/mailhog/maildir/*
+/volumes/mariadb/databases/*
+/volumes/mariadb/logs/*
+/volumes/nginx/logs/*
+/volumes/portainer/data/*
