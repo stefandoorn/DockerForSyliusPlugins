@@ -1,5 +1,9 @@
 # Docker setup for Sylius plugin development
 
+## Portainer
+
+If you prefer to manage your containers without external apps, you can uncomment portainer service definition in top of `docker-compose.yml`.
+
 ## Installation
 
 * Ensure `volumes/*` are world writable and `images/*` are world readable.
