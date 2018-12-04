@@ -2,7 +2,7 @@
 
 ## Portainer
 
-If you prefer to manage your containers without external apps, you can uncomment portainer service definition in top of `docker-compose.yml`.
+If you prefer to manage your containers without external apps, you can uncomment portainer service definition in top of `docker-compose.yml`. It will be accesible in http://localhost:8090
 
 ## Installation
 
