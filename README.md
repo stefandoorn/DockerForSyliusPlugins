@@ -87,6 +87,6 @@ $ (cd tests/Application && bin/console doctrine:schema:create -e dev)
 $ (cd tests/Application && bin/console sylius:fixtures:load -e dev)
 ```
 * To use mailhog, set `disable_delivery: false` in `tests/Application/config/packages/dev/swiftmailer.yaml`
-* Adminer: `http://localhost:8033`
-* Mailhog: `http://localhost:8025`
-* App: `http://localhost`
+* Adminer: http://localhost:8033
+* Mailhog: http://localhost:8025
+* App: http://localhost
