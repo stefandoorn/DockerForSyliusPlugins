@@ -1,16 +1,15 @@
-#
-Docker setup for Sylius plugin development
+# Docker setup for Sylius plugin development
 
 ## Overview
 
-The goal of this docker setup is to help in the development of Sylius plugins, so at the moment it has a very focused and limited scope. It only requires a basic understanding of docker and docker-compose, but if you face any problem, ask for help in Sylius slack #docker channel.
+The goal of this docker setup is to help in the development of Sylius plugins, so at the moment it has a very focused and limited scope. It only requires a basic understanding of docker and docker-compose, but if you face any problem, ask for help in Sylius slack `#docker` channel.
 
 ## Services
 
 ### Selenium
 Selenium support comes out of the box so you only need to configure `behat.yml` as described in setup.
 ### Xdebug
-As Docker assigns subnet in a dynamic fashion, we need to setup a "static" subnet `172.20.0.0/16` under network configuration in `docker-compose.yml`. If you experience some sort of conflict with you own network, just change it to anything like `172.*.0.0/16`. Just remember to change also `PHP_XDEBUG_REMOTE_HOST` to be in the same subnet. It also comes with the asumption that you are using your Xdebug client on port `9000`. If you are using it on another port, just change it in `docker-compose.yml`.
+As Docker assigns subnet in a dynamic fashion, we need to setup a "static" subnet `172.20.0.0/16` under network configuration in `docker-compose.yml`. If you experience some sort of conflict with your own network, just change it to anything like `172.*.0.0/16`. Just remember to change also `PHP_XDEBUG_REMOTE_HOST` to be in the same subnet. It also comes with the asumption that you are using your Xdebug client on port `9000`. If you are using it on another port, just change it in `docker-compose.yml`.
 
 ### Mailhog
 MailHog is an email testing tool that catches all application emails before they reach the outside world. You can access it at http://localhost:8025.
@@ -33,29 +32,29 @@ Your app will be accesible via http://localhost. It runs on port `80`. If you al
 * In `tests/Application/config/packages/doctrine.yaml` set `server_version: 'mariadb-10.4.0'`
 * Change `behat.yml.dist` to `behat.yml` and add `Behat\MinkExtension`:
 ```yaml
-Behat\MinkExtension:
-files_path: "%paths.base%/vendor/sylius/sylius/src/Sylius/Behat/Resources/fixtures/"
-base_url: "http://nginx/"
-default_session: symfony
-javascript_session: chrome
-sessions:
-symfony:
-symfony: ~
-chrome:
-selenium2:
-browser: chrome
-wd_host: "http://selenium-hub:4444/wd/hub"
-capabilities:
-browserName: chrome
-browser: chrome
-version: ""
-marionette: null # https://github.com/Behat/MinkExtension/pull/311
-chrome:
-switches:
-- "start-fullscreen"
-- "start-maximized"
-- "no-sandbox"
-show_auto: false
+        Behat\MinkExtension:
+            files_path: "%paths.base%/vendor/sylius/sylius/src/Sylius/Behat/Resources/fixtures/"
+            base_url: "http://nginx/"
+            default_session: symfony
+            javascript_session: chrome
+            sessions:
+                symfony:
+                    symfony: ~
+                chrome:
+                    selenium2:
+                        browser: chrome
+                        wd_host: "http://selenium-hub:4444/wd/hub"
+                        capabilities:
+                            browserName: chrome
+                            browser: chrome
+                            version: ""
+                            marionette: null # https://github.com/Behat/MinkExtension/pull/311
+                            chrome:
+                                switches:
+                                    - "start-fullscreen"
+                                    - "start-maximized"
+                                    - "no-sandbox"
+            show_auto: false
 ```
 * To use mailhog, set `disable_delivery: false` in `tests/Application/config/packages/dev/swiftmailer.yaml`
 * From `/home/sylius`, run the following commands **(Note that if you already have your plugin you probably can skip yarn and assets steps)** :
