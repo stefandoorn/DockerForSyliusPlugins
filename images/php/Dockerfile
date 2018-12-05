@@ -55,6 +55,11 @@ RUN set -xe \
         python2 \
         yarn
 
+# Switch app environment script
+COPY switch-env /usr/local/bin/switch-env
+RUN chmod +x /usr/local/bin/switch-env
+
+# Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 USER www-data

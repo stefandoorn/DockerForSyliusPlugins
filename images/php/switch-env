@@ -1,0 +1,8 @@
+#!/bin/sh
+
+NEW_ENV=$1
+
+if [[ -e "${APP_PATH}/tests/Application/.env.${NEW_ENV}" ]]; then
+    cp -f ${APP_PATH}/tests/Application/.env.${NEW_ENV} ${APP_PATH}/tests/Application/.env
+    echo "You are now on ${NEW_ENV} environment"
+fi

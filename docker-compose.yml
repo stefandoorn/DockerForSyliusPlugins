@@ -33,6 +33,7 @@ services:
       - './images/php/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini'
     environment:
       # Symfony Dotenv never overwrites existing environment variables
+      APP_PATH: ${APP_PATH}
       # APP_ENV: dev
       # APP_DEBUG: 1
       APP_SECRET: EDITME

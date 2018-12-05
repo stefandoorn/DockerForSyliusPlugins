@@ -8,6 +8,7 @@ The goal of this docker setup is to help in the development of Sylius plugins, s
 
 ### Selenium
 Selenium support comes out of the box so you only need to configure `behat.yml` as described in setup.
+
 ### Xdebug
 As Docker assigns subnet in a dynamic fashion, we need to setup a "static" subnet `172.20.0.0/16` under network configuration in `docker-compose.yml`. If you experience some sort of conflict with your own network, just change it to anything like `172.*.0.0/16`. Just remember to change also `PHP_XDEBUG_REMOTE_HOST` to be in the same subnet. It also comes with the asumption that you are using your Xdebug client on port `9000`. If you are using it on another port, just change it in `docker-compose.yml`.
 
@@ -28,7 +29,7 @@ Your app will be accesible via http://localhost. It runs on port `80`. If you al
 * Log into app container: `docker exec -i -t php /bin/sh`
 * **(New plugin only)** From `/home/sylius` (container workdir) `composer create-project sylius/plugin-skeleton .`
 * Change `tests/Application/.env.test.dist` to `.env.test`
-* Change `tests/Application/.env.dist` to `.env`
+* Change `tests/Application/.env.dist` to `.env` **and** `.env.dev`
 * Change `behat.yml.dist` to `behat.yml` and add `Behat\MinkExtension`:
 ```yaml
         Behat\MinkExtension:
@@ -80,6 +81,7 @@ $ (cd tests/Application && bin/console sylius:fixtures:load -e dev)
 
 * Fire up containers: `docker-compose up -d`
 * Log into app container: `docker exec -i -t php /bin/sh`
+* Execute `switch-env test`
 
 - PHPUnit
 
@@ -103,4 +105,12 @@ $ vendor/bin/behat --tags="~@javascript"
 
 ```bash
 $ vendor/bin/behat --tags="@javascript"
+```
+
+## Change environment
+
+For ease of development, there is a shortcut to easily change between dev|test environments, just type
+
+```
+switch-env [test|dev]
 ```
