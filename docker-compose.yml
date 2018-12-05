@@ -36,7 +36,7 @@ services:
       # APP_ENV: dev
       # APP_DEBUG: 1
       APP_SECRET: EDITME
-      DATABASE_URL: mysql://root:root@mariadb/sylius_%kernel.environment%
+      DATABASE_URL: mysql://root:root@mysql/sylius_%kernel.environment%
       MAILER_URL: smtp://mailhog:1025
       # *.ini
       PHP_DATE_TIMEZONE: UTC
@@ -51,16 +51,16 @@ services:
      - 'sylius'
     restart: 'always'
     depends_on:
-      - mariadb
+      - mysql
 
-  mariadb:
-    image: 'mariadb:10.4.0'
-    container_name: 'mariadb'
+  mysql:
+    image: 'mysql:5.7'
+    container_name: 'mysql'
     volumes:
-      - './volumes/mariadb/databases:/var/lib/mysql:rw,delegated'
-      - './volumes/mariadb/logs:/var/log/mysql:rw,delegated'
+      - './volumes/mysql/databases:/var/lib/mysql:rw,delegated'
+      - './volumes/mysql/logs:/var/log/mysql:rw,delegated'
       # Config
-      - './images/mariadb/user.cnf:/etc/mysql/conf.d/user.cnf'
+      - './images/mysql/user.cnf:/etc/mysql/conf.d/user.cnf'
     environment:
       MYSQL_ROOT_PASSWORD: root
     expose:
@@ -107,7 +107,7 @@ services:
     restart: 'always'
     depends_on:
       - selenium-hub
-      
+
   mailhog:
     image: 'mailhog/mailhog:latest'
     container_name: 'mailhog'
@@ -137,7 +137,7 @@ services:
      - 'sylius'
     restart: 'always'
     depends_on:
-      - mariadb
+      - mysql
 
 networks:
   sylius:

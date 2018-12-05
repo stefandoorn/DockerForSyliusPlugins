@@ -1,6 +1,5 @@
 /volumes/app/*
 /volumes/mailhog/maildir/*
-/volumes/mariadb/databases/*
-/volumes/mariadb/logs/*
+/volumes/mysql/databases/*
+/volumes/mysql/logs/*
 /volumes/nginx/logs/*
-/volumes/portainer/data/*

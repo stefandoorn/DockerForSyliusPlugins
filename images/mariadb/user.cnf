@@ -1,5 +1,0 @@
-# Load precedence:
-# my.cnf
-# !include /etc/mysql/mariadb.cnf
-# !includedir /etc/mysql/mariadb.conf.d/
-# !includedir /etc/mysql/conf.d/

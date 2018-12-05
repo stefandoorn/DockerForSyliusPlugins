@@ -29,7 +29,6 @@ Your app will be accesible via http://localhost. It runs on port `80`. If you al
 * **(New plugin only)** From `/home/sylius` (container workdir) `composer create-project sylius/plugin-skeleton .`
 * Change `tests/Application/.env.test.dist` to `.env.test`
 * Change `tests/Application/.env.dist` to `.env`
-* In `tests/Application/config/packages/doctrine.yaml` set `server_version: 'mariadb-10.4.0'`
 * Change `behat.yml.dist` to `behat.yml` and add `Behat\MinkExtension`:
 ```yaml
         Behat\MinkExtension:

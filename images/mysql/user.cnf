@@ -1,0 +1,4 @@
+# Load precedence:
+# my.cnf
+# !include /etc/mysql/my.cnf
+# !includedir /etc/mysql/conf.d/
