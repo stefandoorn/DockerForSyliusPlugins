@@ -20,7 +20,7 @@ services:
     command: /bin/sh -c "envsubst '$$APP_PUBLIC_PATH' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
     volumes:
       - './volumes/app:${APP_PATH}:ro'
-      - './volumes/nginx/logs:/var/log/nginx'
+      - './volumes/nginx/logs:/var/log/nginx:rw,delegated'
       # Config
       - './images/nginx/default.conf.template:/etc/nginx/conf.d/default.conf.template'
     environment:
@@ -70,8 +70,8 @@ services:
     image: 'mariadb:10.4.0'
     container_name: 'mariadb'
     volumes:
-      - './volumes/mariadb/databases:/var/lib/mysql'
-      - './volumes/mariadb/logs:/var/log/mysql'
+      - './volumes/mariadb/databases:/var/lib/mysql:rw,delegated'
+      - './volumes/mariadb/logs:/var/log/mysql:rw,delegated'
       # Config
       - './images/mariadb/user.cnf:/etc/mysql/conf.d/user.cnf'
     environment:

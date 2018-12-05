@@ -8,7 +8,7 @@ services:
     volumes:
       # - '/dev/shm:/dev/shm'
       # Needed for Behat file uploads (Must be the same as in php app container)
-      - './volumes/app:${APP_PATH}:rw,cached'
+      - './volumes/app:${APP_PATH}:ro,cached'
     environment:
       SCREEN_WIDTH: 2880
       SCREEN_HEIGHT: 1800
@@ -26,7 +26,7 @@ services:
     volumes:
       # - '/dev/shm:/dev/shm'
       # Needed for Behat file uploads (Must be the same as in php app container)
-      - './volumes/app:${APP_PATH}:rw,cached'
+      - './volumes/app:${APP_PATH}:ro,cached'
     environment:
       HUB_HOST: selenium-hub
       HUB_PORT: 4444
