@@ -12,8 +12,10 @@ If you prefer to manage your containers without external apps, you can uncomment
 * Fire up containers: `docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d`
 * Log into app container: `docker exec -i -t php /bin/sh`
 * From `/home/sylius` (container workdir) run `composer create-project sylius/plugin-skeleton .`
+* Change `tests/Application/.env.test.dist` to `.env.test`
+* Change `tests/Application/.env.dist` to `.env`
 * In `tests/Application/config/packages/doctrine.yaml` set `server_version: 'mariadb-10.4.0'`
-* In `behat.yml` file, add `Behat\MinkExtension`:
+* Change `behat.yml.dist` to `behat.yml` and add `Behat\MinkExtension`:
 ```yaml
         Behat\MinkExtension:
             files_path: "%paths.base%/vendor/sylius/sylius/src/Sylius/Behat/Resources/fixtures/"
@@ -76,7 +78,7 @@ $ (cd tests/Application && bin/console doctrine:schema:create -e test)
     ```
 
 ## Development environment
-* Change `.env.dev.dist` to `.env`
+
 * Fire up containers: `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d`
 * Log into app container: `docker exec -i -t php /bin/sh`
 * From `/home/sylius`, run the following commands:

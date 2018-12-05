@@ -1,4 +1,3 @@
-.env
 /volumes/app/*
 /volumes/mailhog/maildir/*
 /volumes/mariadb/databases/*
