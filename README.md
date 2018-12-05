@@ -26,7 +26,7 @@ Your app will be accesible via http://localhost. It runs on port `80`. If you al
 * **(Already existing plugin only)** If you already have your plugin, place it in `volumes/app`. It will become `/home/sylius` inside `php` container.
 * Fire up containers: `docker-compose up -d`
 * Log into app container: `docker exec -i -t php /bin/sh`
-* **(New plugin only)** From `/home/sylius` (container workdir) run `composer create-project sylius/plugin-skeleton .`
+* **(New plugin only)** From `/home/sylius` (container workdir) `composer create-project sylius/plugin-skeleton .`
 * Change `tests/Application/.env.test.dist` to `.env.test`
 * Change `tests/Application/.env.dist` to `.env`
 * In `tests/Application/config/packages/doctrine.yaml` set `server_version: 'mariadb-10.4.0'`
