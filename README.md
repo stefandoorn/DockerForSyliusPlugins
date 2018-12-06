@@ -2,7 +2,7 @@
 
 ## Overview
 
-The goal of this docker setup is to help in the development of Sylius plugins, so at the moment it has a very focused and limited scope. It only requires a basic understanding of docker and docker-compose, but if you face any problem, ask for help in Sylius slack `#docker` channel.
+The goal of this docker setup is to help in the development of Sylius plugins (**Since 1.3**), so at the moment it has a very focused and limited scope. It only requires a basic understanding of docker and docker-compose, but if you face any problem, ask for help in Sylius slack `#docker` channel.
 
 ## Services
 
