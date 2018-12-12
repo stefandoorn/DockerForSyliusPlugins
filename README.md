@@ -28,7 +28,7 @@ Your app will be accesible via http://localhost. It runs on port `80`. If you al
 * Fire up containers: `docker-compose up -d`
 * Log into app container: `docker exec -i -t php /bin/sh`
 * **(New plugin only)** From `/home/sylius` (container workdir) `composer create-project sylius/plugin-skeleton .`
-* Rename/move `tests/Application/.env.test.dist` to `tests/Application/.env.test`
+* Copy `tests/Application/.env.test.dist` to `tests/Application/.env.test`
 * Rename/move `tests/Application/.env.dist` to `tests/Application/.env`
 * Copy `tests/Application/.env` to `tests/Application/.env.dev`
 * Rename/move `behat.yml.dist` to `behat.yml` and add `Behat\MinkExtension`:
